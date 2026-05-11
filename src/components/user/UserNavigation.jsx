@@ -44,7 +44,7 @@ function UserNavigation() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/profile">
+                    <Link className="dropdown-item" to="/profile/update">
                       Update Info
                     </Link>
                   </li>

@@ -2,10 +2,8 @@ import UserNavigation from "../../components/user/UserNavigation";
 import Footer from "../../components/Footer";
 import Hero from "../../components/user/Hero";
 import Features from "../../components/user/Features";
-import Goals from "../../components/user/Goals";
-import UserAnnouncements from "../../components/user/announcements/UserAnnouncements";
-import UserAttendance from "../../components/user/attendance/UserAttendance";
-import UserScore from "../../components/user/contribution/UserScore";
+import UserTestimonials from "../../components/user/UserTestimonials";
+import UserCallToAction from "../../components/user/UserCallToAction";
 
 function LandingPage() {
   return (
@@ -13,12 +11,8 @@ function LandingPage() {
       <UserNavigation />
       <Hero />
       <Features />
-      <div className="container">
-        <UserAnnouncements />
-        <UserScore />
-        <UserAttendance />
-      </div>
-      <Goals />
+      <UserTestimonials />
+      <UserCallToAction />
       <Footer />
     </>
   );

@@ -1,42 +1,91 @@
-import { useState } from "react";
-
 function UserCarousel() {
+  const slides = [
+    {
+      image: "/seminar2.jpg",
+      alt: "Unified Platform",
+      title: "Enterprise Visibility",
+      description:
+        "Gain real-time insights into your engagement, attendance, and society standing through our unified portal.",
+    },
+    {
+      image: "/groupwork1.jpg",
+      alt: "Collaboration",
+      title: "Seamless Collaboration",
+      description:
+        "Bridge the gap between teams with centralized resource management, integrated calendars, and communication tools.",
+    },
+    {
+      image: "/magnifyingGlass.jpg",
+      alt: "Analytics",
+      title: "Predictive Performance",
+      description:
+        "Leverage AI-driven heuristics that automatically track your progress and provide actionable career insights.",
+    },
+  ];
+
   return (
-    <div id="userCarousel" className="carousel slide shadow rounded" data-bs-ride="carousel">
+    <div
+      id="userCarousel"
+      className="carousel slide shadow-lg rounded"
+      data-bs-ride="carousel"
+    >
       <div className="carousel-indicators">
-        <button type="button" data-bs-target="#userCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#userCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#userCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            data-bs-target="#userCarousel"
+            data-bs-slide-to={index}
+            className={index === 0 ? "active" : ""}
+            aria-current={index === 0 ? "true" : undefined}
+            aria-label={`Slide ${index + 1}`}
+          ></button>
+        ))}
       </div>
-      <div className="carousel-inner rounded" style={{ height: "400px" }}>
-        <div className="carousel-item active h-100">
-          <img src="/seminar.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} alt="Seminar" />
-          <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-            <h5>Engaging Seminars</h5>
-            <p>Attend our world-class seminars to boost your skills.</p>
+
+      <div className="carousel-inner rounded" style={{ height: "450px" }}>
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`carousel-item h-100 ${index === 0 ? "active" : ""}`}
+          >
+            <img
+              src={slide.image}
+              className="d-block w-100 h-100"
+              style={{ objectFit: "cover" }}
+              alt={slide.alt}
+            />
+
+            <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
+              <h4 className="fw-bold text-uppercase tracking-wider">
+                {slide.title}
+              </h4>
+
+              <p className="mb-0">{slide.description}</p>
+            </div>
           </div>
-        </div>
-        <div className="carousel-item h-100">
-          <img src="/groupwork.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} alt="Group Work" />
-          <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-            <h5>Collaborative Projects</h5>
-            <p>Team up with peers and conquer ambitious goals.</p>
-          </div>
-        </div>
-        <div className="carousel-item h-100">
-          <img src="/campus1.jpg" className="d-block w-100 h-100" style={{ objectFit: "cover" }} alt="Campus Life" />
-          <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-            <h5>Vibrant Campus Life</h5>
-            <p>Experience the energy of Eloquence.</p>
-          </div>
-        </div>
+        ))}
       </div>
-      <button className="carousel-control-prev" type="button" data-bs-target="#userCarousel" data-bs-slide="prev">
+
+      <button
+        className="carousel-control-prev"
+        type="button"
+        data-bs-target="#userCarousel"
+        data-bs-slide="prev"
+      >
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+
         <span className="visually-hidden">Previous</span>
       </button>
-      <button className="carousel-control-next" type="button" data-bs-target="#userCarousel" data-bs-slide="next">
+
+      <button
+        className="carousel-control-next"
+        type="button"
+        data-bs-target="#userCarousel"
+        data-bs-slide="next"
+      >
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
+
         <span className="visually-hidden">Next</span>
       </button>
     </div>

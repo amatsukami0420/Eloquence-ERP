@@ -1,4 +1,5 @@
 import AdminHero from "../../components/admin/AdminHero";
+import AdminSystemStatus from "../../components/admin/AdminSystemStatus";
 
 function AdminLandingPage() {
   return (
@@ -27,6 +28,7 @@ function AdminLandingPage() {
           </div>
         </div>
       </div>
+      <AdminSystemStatus />
     </>
   );
 }
