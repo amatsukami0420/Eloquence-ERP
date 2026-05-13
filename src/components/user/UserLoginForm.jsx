@@ -1,17 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function UserLoginForm() {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials((prev) => ({ ...prev, [name]: value }));
-  };
-
+  function submit(data) {
+    console.log("Form Data:", data);
+    navigate("/");
+  }
   return (
     <>
       <div className="card border-0 shadow-sm p-4 h-100">
@@ -20,16 +17,15 @@ function UserLoginForm() {
           Access the student portal with your credentials.
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit(submit)}>
           <div className="mb-3">
             <label className="form-label small fw-bold">University Email</label>
             <input
               type="email"
-              name="email"
+              id="email"
               className="form-control"
               placeholder="student@cuonline.edu.pk"
-              value={credentials.email}
-              onChange={handleChange}
+              {...register("email")}
             />
           </div>
 
@@ -37,24 +33,26 @@ function UserLoginForm() {
             <label className="form-label small fw-bold">Password</label>
             <input
               type="password"
-              name="password"
+              id="password"
               className="form-control"
               placeholder="********"
-              value={credentials.password}
-              onChange={handleChange}
+              {...register("password")}
             />
           </div>
 
-          <Link to="/" className="btn btn-primary w-100 fw-bold mb-3 shadow-sm">
+          <button
+            type="submit"
+            className="btn btn-primary w-100 fw-bold mb-3 shadow-sm"
+          >
             Login as Student
-          </Link>
+          </button>
 
           <div className="text-center">
             <Link
               to="/register"
               className="small text-muted text-decoration-none"
             >
-              New applicant?
+              New applicant?{" "}
               <span className="text-primary fw-bold">Register</span>
             </Link>
           </div>

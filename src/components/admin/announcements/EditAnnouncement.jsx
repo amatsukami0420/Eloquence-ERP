@@ -1,16 +1,19 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 function EditAnnouncement() {
-  const [data, setData] = useState({
-    title: "Existing Post",
-    content: "Existing content...",
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: "Existing Post",
+      content: "Existing content...",
+    },
   });
+  const navigate = useNavigate();
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    alert("Changes saved to announcement: " + data.title);
-  };
+  function submit(data) {
+    console.log("Updated Announcement:", data);
+    navigate("/admin/announcements");
+  }
 
   return (
     <>
@@ -20,22 +23,26 @@ function EditAnnouncement() {
           style={{ maxWidth: "500px" }}
         >
           <h5 className="fw-bold text-dark mb-4">Edit Announcement</h5>
-          <form onSubmit={handleSave}>
+
+          <form onSubmit={handleSubmit(submit)}>
             <input
               type="text"
+              id="title"
               className="form-control mb-3"
-              value={data.title}
-              onChange={(e) => setData({ ...data, title: e.target.value })}
-              required
+              {...register("title", { required: true })}
             />
+
             <textarea
+              id="content"
               className="form-control mb-3"
               rows="4"
-              value={data.content}
-              onChange={(e) => setData({ ...data, content: e.target.value })}
-              required
+              {...register("content", { required: true })}
             ></textarea>
-            <button type="submit" className="btn btn-primary w-100 mb-2">Save Changes</button>
+
+            <button type="submit" className="btn btn-primary w-100 mb-2">
+              Save Changes
+            </button>
+
             <Link
               to="/admin/announcements"
               className="btn btn-link w-100 text-muted small text-decoration-none"

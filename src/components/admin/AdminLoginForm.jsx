@@ -1,16 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminLoginForm() {
-  const [adminCreds, setAdminCreds] = useState({
-    email: "",
-    password: "",
-  });
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAdminCreds((prev) => ({ ...prev, [name]: value }));
-  };
+  function submit(data) {
+    console.log("Admin Login Data:", data);
+    navigate("/admin");
+  }
 
   return (
     <>
@@ -20,17 +18,16 @@ function AdminLoginForm() {
           Authorized personnel only. Enter management credentials.
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit(submit)}>
           <div className="mb-3">
             <label className="form-label small fw-bold text-secondary text-uppercase">
               Admin ID / Email
             </label>
             <input
               type="email"
-              name="email"
+              id="email"
               className="form-control bg-light"
-              value={adminCreds.email}
-              onChange={handleChange}
+              {...register("email")}
             />
           </div>
 
@@ -40,19 +37,18 @@ function AdminLoginForm() {
             </label>
             <input
               type="password"
-              name="password"
+              id="password"
               className="form-control bg-light"
-              value={adminCreds.password}
-              onChange={handleChange}
+              {...register("password")}
             />
           </div>
 
-          <Link
-            to="/admin"
+          <button
+            type="submit"
             className="btn btn-dark w-100 fw-bold mb-2 shadow-sm"
           >
             Access Command Center
-          </Link>
+          </button>
 
           <Link
             to="/"

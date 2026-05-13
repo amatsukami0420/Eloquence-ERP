@@ -1,42 +1,13 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
 function RegistrationForm() {
   const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    age: "",
-    cell: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    intake: "",
-    dept: "",
-    roll: "",
-    paymentMethod: "jazzcash",
-    tid: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Error: Passwords do not match.");
-      return;
-    }
-
-    console.log("Eloquence ERP - New Enrollment Data:", formData);
-    alert(
-      "Registration Request Submitted! Please wait for Admin verification.",
-    );
-    navigate("/login");
-  };
+  function submit(data) {
+    console.log("Form Data:", data);
+    navigate("/userlogin");
+  }
 
   return (
     <>
@@ -46,17 +17,15 @@ function RegistrationForm() {
           Complete the form below to join the society.
         </p>
 
-        <form onSubmit={handleSubmit}>
-          {/* Identity Section */}
+        <form onSubmit={handleSubmit(submit)}>
           <div className="row g-3 mb-3">
             <div className="col-md-8">
               <label className="form-label small fw-bold">Full Name</label>
               <input
                 type="text"
-                name="fullName"
+                id="fullName"
                 className="form-control"
-                value={formData.fullName}
-                onChange={handleChange}
+                {...register("fullName")}
                 required
               />
             </div>
@@ -64,10 +33,9 @@ function RegistrationForm() {
               <label className="form-label small fw-bold">Age</label>
               <input
                 type="number"
-                name="age"
+                id="age"
                 className="form-control"
-                value={formData.age}
-                onChange={handleChange}
+                {...register("age")}
                 required
               />
             </div>
@@ -78,10 +46,9 @@ function RegistrationForm() {
               <label className="form-label small fw-bold">Cell Number</label>
               <input
                 type="tel"
-                name="cell"
+                id="cell"
                 className="form-control"
-                value={formData.cell}
-                onChange={handleChange}
+                {...register("cell")}
                 required
               />
             </div>
@@ -89,10 +56,9 @@ function RegistrationForm() {
               <label className="form-label small fw-bold">Email Address</label>
               <input
                 type="email"
-                name="email"
+                id="email"
                 className="form-control"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
                 required
               />
             </div>
@@ -103,10 +69,9 @@ function RegistrationForm() {
               <label className="form-label fw-bold small">Password</label>
               <input
                 type="password"
-                name="password"
+                id="password"
                 className="form-control"
-                value={formData.password}
-                onChange={handleChange}
+                {...register("password")}
                 required
               />
             </div>
@@ -116,10 +81,9 @@ function RegistrationForm() {
               </label>
               <input
                 type="password"
-                name="confirmPassword"
+                id="confirmPassword"
                 className="form-control"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                {...register("confirmPassword")}
                 required
               />
             </div>
@@ -130,10 +94,9 @@ function RegistrationForm() {
             <div className="row g-2">
               <div className="col-4">
                 <select
-                  name="intake"
+                  id="intake"
                   className="form-select font-monospace"
-                  value={formData.intake}
-                  onChange={handleChange}
+                  {...register("intake")}
                   required
                 >
                   <option value="">Intake</option>
@@ -154,10 +117,9 @@ function RegistrationForm() {
               </div>
               <div className="col-4">
                 <select
-                  name="dept"
+                  id="dept"
                   className="form-select font-monospace"
-                  value={formData.dept}
-                  onChange={handleChange}
+                  {...register("dept")}
                   required
                 >
                   <option value="">Dept</option>
@@ -170,11 +132,10 @@ function RegistrationForm() {
               </div>
               <div className="col-4">
                 <input
-                  name="roll"
+                  id="roll"
                   className="form-control font-monospace"
                   placeholder="Roll"
-                  value={formData.roll}
-                  onChange={handleChange}
+                  {...register("roll")}
                   required
                 />
               </div>
@@ -191,12 +152,15 @@ function RegistrationForm() {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="paymentMethod"
+                    id={`paymentMethod-${method}`}
                     value={method}
-                    checked={formData.paymentMethod === method}
-                    onChange={handleChange}
+                    {...register("paymentMethod")}
+                    required
                   />
-                  <label className="form-check-label small fw-semibold text-capitalize">
+                  <label
+                    className="form-check-label small fw-semibold text-capitalize"
+                    htmlFor={`paymentMethod-${method}`} 
+                  >
                     {method}
                   </label>
                 </div>
@@ -204,11 +168,10 @@ function RegistrationForm() {
             </div>
             <input
               type="text"
-              name="tid"
+              id="transactionId"
               className="form-control form-control-sm border-primary"
               placeholder="Transaction ID (TID)"
-              value={formData.tid}
-              onChange={handleChange}
+              {...register("transactionId")}
               required
             />
           </div>
